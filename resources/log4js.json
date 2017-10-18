@@ -1,53 +1,65 @@
 {
-  "appenders": [
-    {
+  "appenders": {
+    "console": {
       "type": "console"
     },
-    {
-      "type": "logLevelFilter",
-      "level": "TRACE",
-      "appender": {
-        "type": "fileSync",
-        "filename": "/logs/info/general.log",
-        "category": "trace",
-        "maxLogSize": 20480,
-        "backups": 10
-      }
+    "trace": {
+      "type": "file",
+      "filename": "logs/info/general.log",
+      "maxLogSize": 20480,
+      "backups": 10
     },
-    {
-      "type": "logLevelFilter",
-      "level": "WARN",
-      "appender": {
-        "type": "fileSync",
-        "filename": "logs/warn/general.log",
-        "category": "warn",
-        "maxLogSize": 20480,
-        "backups": 10
-      }
+    "warn": {
+      "type": "file",
+      "filename": "logs/warn/general.log",
+      "maxLogSize": 20480,
+      "backups": 10
     },
-    {
-      "type": "logLevelFilter",
-      "level": "ERROR",
-      "appender": {
-        "type": "fileSync",
-        "filename": "logs/error/general.log",
-        "category": "error",
-        "maxLogSize": 20480,
-        "backups": 10
-      }
+    "error": {
+      "type": "file",
+      "filename": "logs/error/general.log",
+      "maxLogSize": 20480,
+      "backups": 10
     },
-    {
+    "debug": {
+      "type": "file",
+      "filename": "logs/debug/general.log",
+      "maxLogSize": 20480,
+      "backups": 10
+    },
+    "trace-filter": {
+      "appender": "trace",
       "type": "logLevelFilter",
-      "level": "DEBUG",
-      "appender": {
-        "type": "fileSync",
-        "filename": "logs/debug/general.log",
-        "category": "debug",
-        "maxLogSize": 20480,
-        "backups": 10
-      }
+      "level": "trace"
+    },
+    "warn-filter": {
+      "appender": "warn",
+      "type": "logLevelFilter",
+      "level": "warn"
+    },
+    "error-filter": {
+      "appender": "error",
+      "type": "logLevelFilter",
+      "level": "error"
+    },
+    "debug-filter": {
+      "appender": "debug",
+      "type": "logLevelFilter",
+      "level": "debug"
     }
-  ],
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "warn-filter",
+        "trace-filter",
+        "debug-filter",
+        "error-filter",
+        "console"
+      ],
+      "level": "debug"
+    }
+  },
   "replaceConsole": true,
   "reloadSecs": 300
 }

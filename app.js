@@ -9,16 +9,24 @@ import _ from 'underscore';
 import passport from 'passport';
 
 import Logger from './core/log4js';
-import bot from './api/middleware/HRBot';
+import Mongoose from './core/db/Mongoose';
+import placeholder from './core/placeholder';
+import Constants from './api/enumerations/Constants';
 
+import examplesRouter from './api/modules/v1/endpoint/routes/examples';
+
+const dbConf = placeholder.getBySuffix("mongoose");
 const app = express();
 
+app.db = new Mongoose(process.env.TEST_ENV ? dbConf.testUri : dbConf.uri);
 app.logger = new Logger('app');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 
+
+app.use(path.join(Constants.API_ROUTE.valueOf(), Constants.EXAMPLE_ROUTE.valueOf()), examplesRouter.getRoutes());
 /**
  Error handlers
  * */
@@ -49,8 +57,6 @@ if (app.get('env') === 'development') {
 
         res.status(statusCode)
             .json(result);
-
-        bot.sendMessage('Dev-server error: ', JSON.stringify({statusCode, result}));
     });
 }
 
@@ -70,7 +76,6 @@ app.use((err, req, res, next) => {
 
     res.status(statusCode)
         .json(result);
-    bot.sendMessage('Server error: ', JSON.stringify({statusCode, result}));
 });
 
 /**

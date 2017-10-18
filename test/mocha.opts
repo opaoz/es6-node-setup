@@ -1,2 +1,3 @@
 --reporter mochawesome
 --reporter-options reportDir=public/tests,reportName=index
+--compilers js:babel-core/register

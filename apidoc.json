@@ -1,8 +1,8 @@
 {
-  "name": "HH-grabber",
+  "name": "ES6-Node-Setup",
   "version": "1.0.0",
-  "title": "HH grabber documentation",
-  "url": "/api",
+  "title": "Example",
+  "url": "/api/v1",
   "template": {
     "withCompare": true,
     "withGenerator": false

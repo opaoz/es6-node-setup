@@ -15,7 +15,13 @@ export default new Enum({
      * Api v1 namespace.
      * @type String
      * */
-    API_ROUTE: '/api',
+    API_ROUTE: '/api/v1',
+
+    /**
+     * Example namespace.
+     * @type String
+     */
+    EXAMPLE_ROUTE: '/examples',
 
     /**
      * Month patterns for data parsing

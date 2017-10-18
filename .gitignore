@@ -3,3 +3,5 @@ node_modules/
 public/apidoc
 public/tests
 .idea
+resources/application.yml
+coverage
