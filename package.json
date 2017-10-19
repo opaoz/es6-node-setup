@@ -3,7 +3,7 @@
     "description": "ES6 Node Setup",
     "version": "1.0.0",
     "scripts": {
-        "start": "forever -m 6 --killSignal=SIGINT --spinSleepTime 3000 --minUptime 3000 start ./bin/www ",
+        "start": "NODE_ENV=production node ./bin/www ",
         "test": "MOCHAWESOME_REPORTFILENAME=index MOCHAWESOME_REPORTDIR=public/tests TEST_ENV=true istanbul cover _mocha -u exports -R api/modules/**/tests/**/*.js",
         "apidoc": "apidoc -i api/modules -o public/apidoc"
     },

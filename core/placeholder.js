@@ -9,7 +9,7 @@
 
 import YAML from 'yamljs';
 import path from 'path';
-import _ from 'underscore';
+import _ from 'lodash';
 
 class Placeholder {
     /**

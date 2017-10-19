@@ -1,25 +1,25 @@
-FROM ubuntu
-WORKDIR /var/dev/es6
-ADD . /var/dev/es6
+FROM node:boron
 
-RUN apt-get update
+# Create app directory
+WORKDIR /var/www/es6
 
-RUN apt-get install -y curl
+# For npm@5 or later, copy package-lock.json as well
+COPY package.json package-lock.json ./
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y nodejs
-RUN apt-get install -y build-essential
-
+# Install deps
 RUN npm install
-# RUN npm install -g grunt-cli
-RUN npm install -g apidoc
-RUN npm install -g mocha
-RUN npm install -g forever
 
+# Copy app files
+COPY . .
+
+# Expose out port
 EXPOSE 3000
 
-ENV NODE_ENV production
+# Start tests
+CMD ["npm", "test"]
 
-CMD ["npm","test"]
-CMD ["npm", "apidoc"]
-CMD ["node", "bin/www"]
+# Generate apidocs
+CMD ["npm", "run", "apidoc"]
+
+# Start app
+CMD ["npm", "start"]

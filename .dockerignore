@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+coverage
+public/apidoc
+public/tests
+.idea
+.editorconfig
+.eslintrc
+.gitignore
+.jshintrc
+README.md

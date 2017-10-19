@@ -11,6 +11,7 @@ server:
 
 # Db configuration
 mongoose:
+  db: es6
   uri: mongodb://localhost:27017/es6
   testUri: mongodb://localhost:27017/es6-test
 

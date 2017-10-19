@@ -5,7 +5,7 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-import _ from 'underscore';
+import _ from 'lodash';
 import passport from 'passport';
 
 import Logger from './core/log4js';
@@ -18,7 +18,11 @@ import examplesRouter from './api/modules/v1/endpoint/routes/examples';
 const dbConf = placeholder.getBySuffix("mongoose");
 const app = express();
 
-app.db = new Mongoose(process.env.TEST_ENV ? dbConf.testUri : dbConf.uri);
+app.db = new Mongoose(process.env.TEST_ENV ?
+    dbConf.testUri : // 'mongodb://'+process.env.MONGO_PORT_27017_TCP_ADDR+':'+process.env.MONGO_PORT_27017_TCP_PORT+'/
+    process.env.MONGO_PORT_27017_TCP_ADDR ?
+        `mongodb://${process.env.MONGO_PORT_27017_TCP_ADDR}:${process.env.MONGO_PORT_27017_TCP_PORT}/${dbConf.db}` :
+        dbConf.uri);
 app.logger = new Logger('app');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());

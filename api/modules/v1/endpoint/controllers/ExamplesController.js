@@ -13,7 +13,7 @@ import Example from '../../data/models/Example';
 import BadRequestHttpException from '../../../../../core/exceptions/BadRequestHttpException';
 import ServerErrorHttpException from '../../../../../core/exceptions/ServerErrorHttpException';
 import NotFoundHttpException from '../../../../../core/exceptions/NotFoundHttpException';
-import ResponseDto from '../../../../middleware/ResponseDto';
+import ResponseDTO from '../../../../middleware/ResponseDTO';
 import HttpStatus from '../../../../../core/enumerations/HttpStatus';
 
 export default class ExampleController {
@@ -70,7 +70,7 @@ export default class ExampleController {
                 return next(new ServerErrorHttpException(err));
             }
 
-            return new ResponseDto(res, HttpStatus.OK, example);
+            return new ResponseDTO(res, HttpStatus.OK, example);
         });
     }
 
@@ -116,7 +116,7 @@ export default class ExampleController {
                 return next(new NotFoundHttpException(i18n.__('example not found')));
             }
 
-            return new ResponseDto(res, HttpStatus.OK, example);
+            return new ResponseDTO(res, HttpStatus.OK, example);
         });
     }
 
@@ -179,7 +179,7 @@ export default class ExampleController {
                     return next(new ServerErrorHttpException(err));
                 }
 
-                return new ResponseDto(res, HttpStatus.OK, example);
+                return new ResponseDTO(res, HttpStatus.OK, example);
             });
         });
     }
@@ -225,7 +225,7 @@ export default class ExampleController {
                     return next(new ServerErrorHttpException(err));
                 }
 
-                return new ResponseDto(res, HttpStatus.OK);
+                return new ResponseDTO(res, HttpStatus.OK);
             });
         });
     }
