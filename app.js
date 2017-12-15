@@ -19,7 +19,7 @@ const dbConf = placeholder.getBySuffix("mongoose");
 const app = express();
 
 app.db = new Mongoose(process.env.TEST_ENV ?
-    dbConf.testUri : // 'mongodb://'+process.env.MONGO_PORT_27017_TCP_ADDR+':'+process.env.MONGO_PORT_27017_TCP_PORT+'/
+    dbConf.testUri :
     process.env.MONGO_PORT_27017_TCP_ADDR ?
         `mongodb://${process.env.MONGO_PORT_27017_TCP_ADDR}:${process.env.MONGO_PORT_27017_TCP_PORT}/${dbConf.db}` :
         dbConf.uri);

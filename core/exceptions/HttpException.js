@@ -20,41 +20,34 @@
  * @see <a href="http://www.checkupdown.com/status/error1.html">HTTP errors</a>
  * */
 
-import util from 'util';
 import _ from 'lodash';
-
 import HttpStatus from '../enumerations/HttpStatus';
 
-export default function (httpStatus, message, errors) {
+class HttpException extends Error {
+    constructor(status = HttpStatus.INTERNAL_SERVER_ERROR, message = HttpStatus.INTERNAL_SERVER_ERROR.key, errors = []) {
+        super();
 
-    let statusCode = HttpStatus.INTERNAL_SERVER_ERROR.valueOf();
-    let statusMessage = HttpStatus.INTERNAL_SERVER_ERROR.key;
+        this.name = 'HttpException';
+        this.errors = errors;
 
-    if (typeof httpStatus === 'number') {
-        httpStatus = HttpStatus.get(httpStatus);
-        if (!_.isUndefined(httpStatus)) {
-            statusCode = httpStatus.valueOf();
-            statusMessage = message || httpStatus.key;
-        } else {
-            console.info("Undefined http status " + httpStatus);
+        if (_.isNumber(status)) {
+            status = HttpStatus.get(status);
+
+            if (!_.isUndefined(status)) {
+                this.status = status.valueOf();
+                this.message = message || status.key;
+            } else {
+                console.info(`Undefined http status ${status}`);
+            }
+        } else if (_.isObject(status)) {
+            this.status = status.valueOf();
+            this.message = message || status.key;
+        } else if (_.isString(status)) {
+            this.message = status;
         }
-    } else if (typeof httpStatus === "object") {
-        statusCode = httpStatus.valueOf();
-        statusMessage = message || httpStatus.key;
-    } else if (typeof httpStatus === "string") {
-        statusMessage = httpStatus;
-    }
 
-    function HttpException(status, message, errors) {
-        this.status = status;
-        this.message = message;
-        this.errors = errors || [];
         Error.captureStackTrace(this);
     }
+}
 
-    HttpException.prototype.name = "HttpException";
-
-    util.inherits(HttpException, Error);
-
-    return new HttpException(statusCode, statusMessage, errors);
-};
+export default HttpException;

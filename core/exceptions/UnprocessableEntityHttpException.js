@@ -1,5 +1,3 @@
-"use strict";
-
 /*
  *  Entity error when submitting form with ajax
  */
@@ -17,6 +15,10 @@
 import HttpException from '../exceptions/HttpException';
 import HttpStatus from '../enumerations/HttpStatus';
 
-export default function (errors, message) {
-    return new HttpException(HttpStatus.UNPROCESSABLE_ENTITY, message || "Unprocessable Entity.", errors);
-};
+class UnprocessableEntityHttpException extends HttpException {
+    constructor(errors, message = 'Unprocessable Entity.') {
+        super(HttpStatus.UNPROCESSABLE_ENTITY, message, errors);
+    }
+}
+
+export default UnprocessableEntityHttpException;

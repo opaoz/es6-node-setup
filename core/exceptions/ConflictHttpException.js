@@ -1,5 +1,3 @@
-"use strict";
-
 /*
  * ConflictHttpException represents a "Not Found" HTTP exception with status code 404.
  */
@@ -19,6 +17,10 @@
 import HttpException from '../exceptions/HttpException';
 import HttpStatus from '../enumerations/HttpStatus';
 
-export default (errors, message) => {
-    return new HttpException(HttpStatus.CONFLICT, message || 'Conflict.', errors);
+class ConflictHttpException extends HttpException {
+    constructor(errors, message = 'Conflict.') {
+        super(HttpStatus.CONFLICT, message, errors);
+    }
 }
+
+export default ConflictHttpException;

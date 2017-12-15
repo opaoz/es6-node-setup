@@ -1,5 +1,3 @@
-"use strict";
-
 /*
  * UnauthorizedHttpException represents an "Unauthorized" HTTP exception with status code 401
  *
@@ -24,6 +22,10 @@
 import HttpException from '../exceptions/HttpException';
 import HttpStatus from '../enumerations/HttpStatus';
 
-export default function (errors, message) {
-    return new HttpException(HttpStatus.UNAUTHORIZED, message || "Unauthorized.", errors);
-};
+class UnauthorizedHttpException extends HttpException {
+    constructor(errors, message = 'Unauthorized.') {
+        super(HttpStatus.UNAUTHORIZED, message, errors);
+    }
+}
+
+export default UnauthorizedHttpException;

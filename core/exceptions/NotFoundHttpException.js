@@ -19,6 +19,10 @@
 import HttpException from '../exceptions/HttpException';
 import HttpStatus from '../enumerations/HttpStatus';
 
-export default function (errors, message) {
-    return new HttpException(HttpStatus.NOT_FOUND, message || "Not found.", errors);
-};
+class NotFoundHttpException extends HttpException {
+    constructor(errors, message = 'Not found.') {
+        super(HttpStatus.NOT_FOUND, message, errors);
+    }
+}
+
+export default NotFoundHttpException;

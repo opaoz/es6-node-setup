@@ -1,5 +1,3 @@
-"use strict";
-
 /*
  * ForbiddenHttpException represents a "Forbidden" HTTP exception with status code 403.
  *
@@ -24,6 +22,10 @@
 import HttpException from '../exceptions/HttpException';
 import HttpStatus from '../enumerations/HttpStatus';
 
-export default function (errors, message) {
-    return new HttpException(HttpStatus.FORBIDDEN, message || "Forbidden.", errors);
-};
+class ForbiddenHttpException extends HttpException {
+    constructor(errors, message = 'Forbidden.') {
+        super(HttpStatus.FORBIDDEN, message, errors);
+    }
+}
+
+export default ForbiddenHttpException;

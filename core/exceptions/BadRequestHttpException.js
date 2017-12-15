@@ -1,5 +1,3 @@
-"use strict";
-
 /*
  * BadRequestHttpException represents a "Bad Request" HTTP exception with status code 400.
  *
@@ -24,6 +22,10 @@
 import HttpException from '../exceptions/HttpException';
 import HttpStatus from '../enumerations/HttpStatus';
 
-export default function (errors, message) {
-    return new HttpException(HttpStatus.BAD_REQUEST, message || "Bad request.", errors);
+class BadRequestHttpException extends HttpException {
+    constructor(errors, message = 'Bad request.') {
+        super(HttpStatus.BAD_REQUEST, message, errors);
+    }
 }
+
+export default BadRequestHttpException;
